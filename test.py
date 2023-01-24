@@ -1,40 +1,41 @@
-import numpy as np
-import pandas as pd
+from data_functions import *
 
-def return_dataframe(nom_competence):
+# Entrer le nom de la compétence
 
-    df = pd.read_csv(f'{nom_competence}.csv', encoding="UTF-8-sig", delimiter=",")
+valid_competence = False
+while valid_competence is False:
+    try:
+        competence = input("Entrez la compétence de fabrication:")
+        df = return_dataframe(competence)
+        valid_competence = True
+    except:
+        print("Le nom de la compétence est invalide. Réessayez.\n")
 
-    return df
+print(df)
 
-def format_prereq(prereq_str):
 
-    liste_prereq = prereq_str.split(sep="+")
+valid_item = False
+while valid_item is False:
+    try:
+        item = input("Entrer le nom de l'item (sensible à la casse et à la ponctuation):")
+        (temps, cout, prereq, liste_ressources) = return_item_data(df, item)
+        valid_item = True
+    except:
+        print("Le nom de l'item est invalide ou appartient à une autre compétence que celle spécifiée. Réessayez.\n")
 
-    return liste_prereq
+print(f"\nLe nom est {item}, le temps est {temps} min, et le coût de fabrication est {cout} cr.\n")
 
-def return_item_data(df, nom_item):
 
-    item_index = df.index[df["Nom"]==nom_item].tolist()[0]
-
-    temps_item = df["Temps"][item_index]
-    cout_item = df["Cout"][item_index]
-    prereq_item = df["Pré-Requis"][item_index]
-
-    return (temps_item, cout_item, prereq_item)
-
-competence = input("Entrez la compétence de fabrication:")
-df = return_dataframe(competence)
-
-item = input("Entrer le nom de l'item:")
-(temps, cout, prereq) = return_item_data(df, item)
-
-print(f"Le nom est {item}, le temps est {temps}, et le cout est {cout}.\n")
-if prereq == "-":
-    print(f"Il n'y a aucun Pré-Requis pour l'item.")
+if prereq == "-" or None:
+    print(f"Il n'y a aucun pré-requis pour l'item.")
 else:
-    print(f"La liste de pré-requis est:\n {format_prereq(prereq)}")
-    cout_tot = input("Souhaitez-vous connaître le coût total incluant les pré-requis? (O/N)")
+    print(f"Le pré-requis est: {prereq}")
+
+if liste_ressources[0] == "-" or None:
+    print(f"Il n'y a aucune ressource nécessaire à la fabrication de l'item.")
+else:
+    print(f"La liste de ressources nécessaires à la fabrication de l'item est:\n{liste_ressources}")
+    cout_tot = input("Souhaitez-vous connaître le coût total de fabrication incluant le coût de fabrication des ressources requises? (O/N)")
 
     if cout_tot == "O" or "o":
         print("WIP")

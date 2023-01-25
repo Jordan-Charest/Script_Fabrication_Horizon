@@ -5,5 +5,5 @@ Ce script permet de calculer le coût et le temps de production d'un item via un
 Fonctions à venir:
 
 - Prise en charge des ressources requises provenant d'autres compétences
-- Prise en charge de la compétence "Gestion de projet"
-- Calcul du nombre de crédits même si l'entrée est marquée "-"
+- Prise en charge de la compétence "Gestion de projet" (Ok normalement)
+- Calcul du nombre de crédits même si l'entrée est marquée "-" (Ok normalement)

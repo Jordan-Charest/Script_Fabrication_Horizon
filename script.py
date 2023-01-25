@@ -37,5 +37,22 @@ else:
     print(f"La liste de ressources nécessaires à la fabrication de l'item est:\n{liste_ressources}")
     cout_tot = input("Souhaitez-vous connaître le coût total de fabrication incluant le coût de fabrication des ressources requises? (O/N)")
 
+
+
     if cout_tot == "O" or "o":
-        print("WIP")
+        liste_ressources_input = [item]
+        liste_finale = return_ressources(df, item, liste_ressources_input)
+
+        print("La liste totale de ressources requises est (incluant la ressource finale):")
+        print(liste_finale)
+
+        temps_counter = 0
+        cout_counter = 0
+
+        for item in liste_finale:
+            (temps_add, cout_add, prereq_add, liste_ressources_add) = return_item_data(df, item)
+            temps_counter += float(temps_add)
+            cout_counter += float(cout_add)
+
+        print(f"Le coût total pour produire l'item ainsi que toutes les ressources filles est {cout_counter}.")
+        print(f"Le temps total pour produire l'item ainsi que toutes les ressources filles est {temps_counter}.")

@@ -53,7 +53,7 @@ def return_ressources(df, nom_item, liste_ressources_input):
     liste_ressources_input += liste_ressources_this_iter # Ajouter les ressources à la liste d'input
     for ressource in liste_ressources_this_iter: # pour chaque ressource dans la liste générée cette itération
         # print("La fonction sera appelée recursivement. À ce stade la liste est:")
-        print(liste_ressources_this_iter)
+        # print(liste_ressources_this_iter)
         return_ressources(df, ressource, liste_ressources_input) # Utiliser récursivement la fonction pour ajouter les ressources filles
 
     return liste_ressources_input # Une fois la récursivité terminée, retourner la liste complète.

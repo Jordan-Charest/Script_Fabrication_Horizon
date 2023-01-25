@@ -35,7 +35,7 @@ if liste_ressources[0] == "-" or None:
     print(f"Il n'y a aucune ressource nécessaire à la fabrication de l'item.")
 else:
     print(f"La liste de ressources nécessaires à la fabrication de l'item est:\n{liste_ressources}")
-    cout_tot = input("Souhaitez-vous connaître le coût total de fabrication incluant le coût de fabrication des ressources requises? (O/N)")
+    cout_tot = input("Souhaitez-vous connaître le coût total de fabrication incluant le coût de fabrication des ressources requises? (O/N)\n")
 
 
 
@@ -54,5 +54,5 @@ else:
             temps_counter += float(temps_add)
             cout_counter += float(cout_add)
 
-        print(f"Le coût total pour produire l'item ainsi que toutes les ressources filles est {cout_counter}.")
+        print(f"\nLe coût total pour produire l'item ainsi que toutes les ressources filles est {cout_counter}.")
         print(f"Le temps total pour produire l'item ainsi que toutes les ressources filles est {temps_counter}.")

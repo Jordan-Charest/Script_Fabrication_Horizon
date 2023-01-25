@@ -7,3 +7,5 @@ Fonctions à venir:
 - Prise en charge des ressources requises provenant d'autres compétences
 - Prise en charge de la compétence "Gestion de projet" (Ok normalement)
 - Calcul du nombre de crédits même si l'entrée est marquée "-" (Ok normalement)
+
+Les tests n'ont pas été très extensif, mais ceux que j'ai fait ont tous été corrects. Je vous encourage à tester avec vos compétences pour valider que ça fonctionne bien!

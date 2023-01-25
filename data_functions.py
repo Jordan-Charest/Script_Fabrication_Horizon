@@ -12,14 +12,40 @@ def format_ressources(prereq_str):
 
     return liste_prereq
 
-def return_item_data(df, nom_item):
+def apply_gestion(temps, cout, gestion):
+
+    temps = int(temps)
+    cout = int(cout)
+    
+    gestion_dict = {1:(0,0), 2:(10, 25), 3:(20, 50), 4:(30,100)}
+
+    if gestion[0] is False:
+        return temps, cout
+
+    elif gestion[1]:
+        temps -= gestion_dict[gestion[1]][0]
+        cout -= gestion_dict[gestion[1]][1]
+
+    if temps < 5:
+        temps = 5
+    if cout < 10:
+        cout = 10
+
+    return temps, cout
+
+def return_item_data(df, nom_item, gestion):
 
     item_index = df.index[df["Nom"]==nom_item].tolist()[0]
 
     temps_item = df["Temps (minutes)"][item_index]
     cout_item = df["Fabrication : Crédits"][item_index]
+    if cout_item == "-" or "" or None:
+        cout_item = df["Prix du marché"][item_index]
+
     prereq_item = df["Pré-Requis"][item_index]
     ressources_item = df["Fabrication : Ressources"][item_index]
+
+    temps_item, cout_item = apply_gestion(temps_item, cout_item, gestion)
 
     return (temps_item, cout_item, prereq_item, format_ressources(ressources_item))
 
@@ -32,8 +58,8 @@ def return_ressources(df, nom_item, liste_ressources_input):
     try:
         item_index = df.index[df["Nom"]==nom_item].tolist()[0]
         ressources_item = df["Fabrication : Ressources"][item_index]
-    except:
-        raise ValueError("Erreur rencontrée. La cause probable est que la ressource fille nécessaire appartient à une autre compétence que l'item mère. Cette fonction sera éventuellement prise en charge!")
+    except IndexError:
+        raise IndexError(f"Erreur rencontrée avec la ressource {nom_item}. La cause probable est que la ressource fille nécessaire appartient à une autre compétence que l'item mère. Cette fonction sera éventuellement prise en charge!")
 
     ressources_liste = format_ressources(ressources_item) # Liste des ressources pour l'objet examiné
 
@@ -57,3 +83,4 @@ def return_ressources(df, nom_item, liste_ressources_input):
         return_ressources(df, ressource, liste_ressources_input) # Utiliser récursivement la fonction pour ajouter les ressources filles
 
     return liste_ressources_input # Une fois la récursivité terminée, retourner la liste complète.
+

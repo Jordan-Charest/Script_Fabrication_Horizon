@@ -1,5 +1,12 @@
 from data_functions import *
 
+gestion_input = input("Avez-vous un gestionnaire de projet? (O/N)")
+if gestion_input == "O" or gestion_input == "o":
+    nb_participants = int(input("Combien de personnes participent à la fabrication?"))
+    gestion = (True, nb_participants)
+else:
+    gestion = (False, 0)
+
 # Entrer le nom de la compétence
 
 valid_competence = False
@@ -18,7 +25,7 @@ valid_item = False
 while valid_item is False:
     try:
         item = input("Entrer le nom de l'item (sensible à la casse et à la ponctuation):")
-        (temps, cout, prereq, liste_ressources) = return_item_data(df, item)
+        (temps, cout, prereq, liste_ressources) = return_item_data(df, item, gestion)
         valid_item = True
     except:
         print("Le nom de l'item est invalide ou appartient à une autre compétence que celle spécifiée. Réessayez.\n")
@@ -50,9 +57,9 @@ else:
         cout_counter = 0
 
         for item in liste_finale:
-            (temps_add, cout_add, prereq_add, liste_ressources_add) = return_item_data(df, item)
+            (temps_add, cout_add, prereq_add, liste_ressources_add) = return_item_data(df, item, gestion)
             temps_counter += float(temps_add)
             cout_counter += float(cout_add)
 
-        print(f"\nLe coût total pour produire l'item ainsi que toutes les ressources filles est {cout_counter}.")
-        print(f"Le temps total pour produire l'item ainsi que toutes les ressources filles est {temps_counter}.")
+        print(f"\nLe coût total pour produire l'item ainsi que toutes les ressources filles est {cout_counter} cr.")
+        print(f"Le temps total pour produire l'item ainsi que toutes les ressources filles est {temps_counter} minutes.")

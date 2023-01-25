@@ -6,3 +6,4 @@ Fonctions à venir:
 
 - Prise en charge des ressources requises provenant d'autres compétences
 - Prise en charge de la compétence "Gestion de projet"
+- Calcul du nombre de crédits même si l'entrée est marquée "-"
